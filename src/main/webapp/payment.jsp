@@ -99,7 +99,7 @@ if (customer == null)
             
             const totalAmount = ${orderprice}
             
-            const response = await fetch('http://localhost:2004/saveorder', {
+            const response = await fetch('/saveorder', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
