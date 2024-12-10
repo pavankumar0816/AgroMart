@@ -1,42 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" isELIgnored="false"%>
-<%@ taglib uri="jakarta.tags.core" prefix="c" %>
-<%@page import="com.klef.jfsd.springboot.model.Customer"%>
-<%
-Customer customer = (Customer) session.getAttribute("customer");
-if (customer == null) {
-    response.sendRedirect("customersessionexpiry.jsp");
-    return;
-}
- 
-%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View All Farmer Products</title>
+    <title>Privacy Policy</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        // JavaScript to toggle the dropdown
         function toggleDropdown() {
             const dropdown = document.getElementById('account-dropdown');
             dropdown.classList.toggle('hidden');
         }
     </script>
 </head>
-<body class="bg-white">
-
-     
-    <!-- Main Content -->
-    <div class="flex-1 flex flex-col ml-64">
-        <!-- Navbar -->
+<body class="bg-blue-50">
+<div class="flex-1 flex flex-col ml-64">
+ <!-- Navbar -->
         <nav class="bg-white w-full z-20 top-0 left-0 border-b border-gray-200 p-4 fixed shadow">
             <div class="max-w-screen-xl mx-auto font-bold flex items-center justify-between">
 				 <a href="index.jsp" class="text-2xl font-bold text-green-700">AgroMart</a>
-
-			     
                 <ul class="flex items-center space-x-4">
                     <li class="relative">
                         <a href="mycart" class="flex items-center text-gray-700 hover:text-blue-700 bg-yellow-300 hover:bg-yellow-200 px-4 py-2 rounded-lg transition-all focus:outline-none">
@@ -60,7 +44,6 @@ if (customer == null) {
                                     <i class="fas fa-edit mr-2"></i> Edit Profile
                                 </a>
                             </li>
-                            
                             <li class="hover:bg-gray-600">
                                 <a href="term" class="flex items-center px-4 py-2 text-white">
                                     <i class="fas fa-question-circle mr-2"></i> Terms & Conditions
@@ -71,19 +54,16 @@ if (customer == null) {
                                     <i class="fas fa-question-circle mr-2"></i> Privacy Policy
                                 </a>
                             </li>
-                            
                             <li class="hover:bg-gray-600">
                                 <a href="refund" class="flex items-center px-4 py-2 text-white">
                                     <i class="fas fa-question-circle mr-2"></i> Refunds and Cancellation
                                 </a>
                             </li>
-                            
                             <li class="hover:bg-gray-600">
                                 <a href="contactus" class="flex items-center px-4 py-2 text-white">
                                     <i class="fas fa-question-circle mr-2"></i> Contact US
                                 </a>
                             </li>
-                            
                             <li class="hover:bg-gray-600">
                                 <a href="myorders" class="flex items-center px-4 py-2 text-white">
                                     <i class="fas fa-heart mr-2"></i> My Orders
@@ -105,82 +85,71 @@ if (customer == null) {
             </div>
         </nav>
 
-        <!-- Category and Cost Filter Navbar -->
-        <nav class="bg-gray-200 p-4 shadow-md mt-16">
-            <div class="max-w-screen-xl mx-auto flex justify-between items-center">
-                <!-- Category Dropdown -->
-                <div class="flex items-center w-1/2">
-                    <select id="categorySelect" onchange="filterByCategory()" 
-                        class="p-2 w-full bg-yellow-200 rounded-lg shadow-md text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <option value="">Browse Categories</option>
-                        <option value="All Categories">All Categories</option>
-                        <option value="Processed Foods">Processed Foods</option>
-                        <option value="Handmade Goods">Handmade Goods</option>
-                        <option value="Organic Fertilizers">Organic Fertilizers</option>
-                        <option value="Dairy and Animal Products">Dairy and Animal Products</option>
-                    </select>
-                </div>
+    <!-- Privacy Policy Content -->
+    <div class="mt-20 px-6 max-w-6xl mx-auto">
+        <div class="bg-white p-6 rounded-lg shadow-lg mb-6">
+            <h1 class="text-4xl font-bold text-gray-800 mb-6 border-b-2 pb-2">Privacy Policy</h1>
+            <p class="mb-4 text-lg">At <span class="font-bold text-green-600">AgroMart</span>, your privacy is paramount. This Privacy Policy explains how we collect, use, and safeguard your information.</p>
+        </div>
 
-                <!-- Cost Filter Dropdown -->
-                <div class="flex items-center w-1/3">
-                    <select id="costFilter" onchange="filterByCost()" 
-                        class="p-2 w-full bg-yellow-200 rounded-lg shadow-md text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <option value="">Select By Cost Range</option>
-                        <option value="low">Low Cost</option>
-                        <option value="medium">Medium Cost</option>
-                        <option value="high">High Cost</option>
-                    </select>
-                </div>
+        <div class="flex space-x-6">
+            <div class="w-1/2 bg-white p-6 rounded-lg shadow-lg mb-6">
+                <h2 class="text-2xl font-semibold mt-6 text-gray-700">1. How We Collect Data</h2>
+                <p class="mt-2 text-gray-600">We collect information through:</p>
+                <ul class="list-disc pl-8 mt-2 text-gray-600">
+                    <li>Forms on our platform (e.g., registration, checkout).</li>
+                    <li>Cookies to improve your browsing experience.</li>
+                    <li>Analytics tools for user insights.</li>
+                </ul>
             </div>
-        </nav>
 
-        <!-- Products Grid -->
-        <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-            <c:forEach items="${plist}" var="product">
-                <div class="card bg-white rounded-lg shadow-md p-4 product-card" 
-                     data-category="${product.category}" 
-                     data-cost="${product.cost}">
-                    <img src="displayproductimage?id=${product.id}" alt="${product.name}" class="w-full h-64 object-cover rounded-t-lg">
-                    <h3 class="text-xl font-bold text-gray-800 mt-4">${product.name}</h3>
-                    <p class="text-green-600 font-bold">&#8377;${product.cost}</p>
-                    <p class="text-gray-600">${product.description}</p>
-                    <!-- View Details Button -->
-                    <a href="viewproductdetails?id=${product.id}" 
-                       class="block mt-4 bg-blue-500 hover:bg-blue-600 text-white text-center py-2 px-4 rounded-lg shadow-md transition-all duration-300">
-                        View Details
-                    </a>
-                </div>
-            </c:forEach>
+            <div class="w-1/2 bg-white p-6 rounded-lg shadow-lg mb-6">
+                <h2 class="text-2xl font-semibold mt-6 text-gray-700">2. Why We Collect Data</h2>
+                <p class="mt-2 text-gray-600">Your data helps us:</p>
+                <ul class="list-disc pl-8 mt-2 text-gray-600">
+                    <li>Deliver seamless order processing.</li>
+                    <li>Improve website features and user interaction.</li>
+                    <li>Send promotional updates (with your consent).</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="flex space-x-6">
+            <div class="w-1/2 bg-white p-6 rounded-lg shadow-lg mb-6">
+                <h2 class="text-2xl font-semibold mt-6 text-gray-700">3. How We Store & Protect Your Data</h2>
+                <p class="mt-2 text-gray-600">We use the latest security measures, including:</p>
+                <ul class="list-disc pl-8 mt-2 text-gray-600">
+                    <li>Data encryption during transactions.</li>
+                    <li>Secure servers with restricted access.</li>
+                    <li>Regular audits to identify vulnerabilities.</li>
+                </ul>
+            </div>
+
+            <div class="w-1/2 bg-white p-6 rounded-lg shadow-lg mb-6">
+                <h2 class="text-2xl font-semibold mt-6 text-gray-700">4. Data-Sharing Practices</h2>
+                <p class="mt-2 text-gray-600">We value your trust and do not sell your data. Data sharing is limited to:</p>
+                <ul class="list-disc pl-8 mt-2 text-gray-600">
+                    <li>Legal requirements and compliance.</li>
+                    <li>Trusted service providers (e.g., payment processing).</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg mb-6">
+            <h2 class="text-2xl font-semibold mt-6 text-gray-700">5. Your Rights</h2>
+            <p class="mt-2 text-gray-600">You have full control over your data. You can:</p>
+            <ul class="list-disc pl-8 mt-2 text-gray-600">
+                <li>Access your data anytime.</li>
+                <li>Request corrections to your information.</li>
+                <li>Request data deletion (in accordance with applicable laws).</li>
+            </ul>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-lg mb-6">
+            <p class="mt-6 text-xl text-sm text-red-500 font-bold">For any queries or concerns, contact us at: 
+                <a href="mailto:support@agromart.com" class="text-blue-600 font-semibold underline">support@agromart.com</a>.
+            </p>
         </div>
     </div>
-<script>
-    function filterByCategory() {
-        const category = document.getElementById("categorySelect").value;
-        const grid = document.getElementById("productGrid");
-        const cards = document.querySelectorAll(".product-card");
-
-        grid.classList.remove("hidden");
-        cards.forEach(card => {
-            const cardCategory = card.getAttribute("data-category");
-            card.style.display = (category === "All Categories" || cardCategory === category) ? "block" : "none";
-        });
-    }
-
-    function filterByCost() {
-        const costRange = document.getElementById("costFilter").value;
-        const cards = document.querySelectorAll(".product-card");
-
-        cards.forEach(card => {
-            const cost = parseInt(card.getAttribute("data-cost"), 10); // Ensure the cost is a number
-            let isVisible = false;
-
-            if (costRange === "low" && cost > 0 && cost <= 200) isVisible = true;
-            if (costRange === "medium" && cost > 200 && cost < 750) isVisible = true;
-            if (costRange === "high" && cost >= 750) isVisible = true;
-
-            card.style.display = isVisible ? "block" : "none";
-        });
-    }
-</script>
 </body>
 </html>

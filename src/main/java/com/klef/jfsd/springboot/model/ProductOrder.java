@@ -53,6 +53,9 @@ public class ProductOrder
 	@JoinColumn(name = "orderaddress_id")
 	private OrderAddress orderAddress;
 	
+	@Column(name="razorpayorder_id")
+	private String razorpayOrderId;
+	
 	 
 	public int getId() {
 		return id;
@@ -115,6 +118,12 @@ public class ProductOrder
 
 	public void setOrderAddress(OrderAddress orderAddress) {
 		this.orderAddress = orderAddress;
+	}
+	public String getRazorpayOrderId() {
+		return razorpayOrderId;
+	}
+	public void setRazorpayOrderId(String razorpayOrderId) {
+		this.razorpayOrderId = razorpayOrderId;
 	}
 
 }

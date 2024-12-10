@@ -9,16 +9,12 @@ public class OrderRequest
    
    private String email;
    
-   private String mobileno;
+   private String mobileNo;
    
    private String address;
    
-   @Override
-public String toString() {
-	return "OrderRequest [fullname=" + fullname + ", email=" + email + ", mobileno=" + mobileno + ", address=" + address
-			+ ", city=" + city + ", state=" + state + ", pincode=" + pincode + ", paymentType=" + paymentType + "]";
-}
-
+   private double amount;
+   
 private String city;
    
    private String state;
@@ -26,6 +22,13 @@ private String city;
    private String pincode;
    
    private String paymentType;
+   
+   @Override
+public String toString() {
+	return "OrderRequest [fullname=" + fullname + ", email=" + email + ", mobileNo=" + mobileNo + ", address=" + address
+			+ ", city=" + city + ", state=" + state + ", pincode=" + pincode + ", paymentType=" + paymentType + "]";
+}
+
 
 public String getFullname() {
 	return fullname;
@@ -43,12 +46,12 @@ public void setEmail(String email) {
 	this.email = email;
 }
 
-public String getMobileno() {
-	return mobileno;
+public String getMobileNo() {
+	return mobileNo;
 }
 
-public void setMobileno(String mobileno) {
-	this.mobileno = mobileno;
+public void setMobileNo(String mobileNo) {
+    this.mobileNo = mobileNo;
 }
 
 public String getAddress() {
@@ -58,6 +61,16 @@ public String getAddress() {
 public void setAddress(String address) {
 	this.address = address;
 }
+
+public double getAmount() {
+	return amount;
+}
+
+
+public void setAmount(double amount) {
+	this.amount = amount;
+}
+
 
 public String getCity() {
 	return city;

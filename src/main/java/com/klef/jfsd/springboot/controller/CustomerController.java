@@ -3,7 +3,9 @@ package com.klef.jfsd.springboot.controller;
 import java.security.Principal;
 import java.util.List;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -11,15 +13,17 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.klef.jfsd.springboot.model.Cart;
 import com.klef.jfsd.springboot.model.Customer;
 import com.klef.jfsd.springboot.model.OrderRequest;
+import com.klef.jfsd.springboot.model.OrderResponse;
 import com.klef.jfsd.springboot.model.OrderStatus;
 import com.klef.jfsd.springboot.model.ProductOrder;
 import com.klef.jfsd.springboot.model.Products;
@@ -27,6 +31,8 @@ import com.klef.jfsd.springboot.service.CartService;
 import com.klef.jfsd.springboot.service.CustomerService;
 import com.klef.jfsd.springboot.service.FarmerService;
 import com.klef.jfsd.springboot.service.OrderService;
+import com.razorpay.Order;
+import com.razorpay.RazorpayClient;
 
 import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpServletRequest;
@@ -61,6 +67,35 @@ public class CustomerController
 		ModelAndView mv = new ModelAndView("index");
 		return mv;
 	}
+	
+	@GetMapping("term")
+	public ModelAndView term()
+	{
+		ModelAndView mv = new ModelAndView("term");
+		return mv;
+	}
+	
+	@GetMapping("privacy")
+	public ModelAndView privacy()
+	{
+		ModelAndView mv = new ModelAndView("privacy");
+		return mv;
+	}
+    
+	@GetMapping("refund")
+	public ModelAndView refund()
+	{
+		ModelAndView mv = new ModelAndView("refund");
+		return mv;
+	}
+	
+	@GetMapping("contactus")
+	public ModelAndView contactus()
+	{
+		ModelAndView mv = new ModelAndView("contactus");
+		return mv;
+	}
+	
 	
 	 @Autowired
 	 private JavaMailSender mailSender;
@@ -387,32 +422,67 @@ public class CustomerController
 
 
 	    
-	    @PostMapping("saveorder")
-	    public String saveOrder(@ModelAttribute OrderRequest request, HttpServletRequest request1) 
-	    {
-	        HttpSession session = request1.getSession(false);
- 
-	        if (session == null || session.getAttribute("customer") == null) 
-	        {
-	            return "orderfail"; // Redirect to the order failure page
+		/*
+		 * @PostMapping("saveorder") public String saveOrder(@ModelAttribute
+		 * OrderRequest request, HttpServletRequest request1) { HttpSession session =
+		 * request1.getSession(false);
+		 * 
+		 * if (session == null || session.getAttribute("customer") == null) { return
+		 * "orderfail"; // Redirect to the order failure page }
+		 * 
+		 * try {
+		 * 
+		 * Customer customer = (Customer) session.getAttribute("customer");
+		 * 
+		 * orderService.saveOrder(customer.getId(), request);
+		 * 
+		 * return "ordersuccess"; } catch (Exception e)
+		 * 
+		 * {
+		 * 
+		 * return "orderfail"; } }
+		 */
+	    
+	    @PostMapping(value = "saveorder", produces = "application/json")
+	    @ResponseBody
+	    public ResponseEntity<Object> saveOrder(@RequestBody OrderRequest request, HttpServletRequest httpServletRequest) {
+	        HttpSession session = httpServletRequest.getSession(false);
+
+	        // Check if the session or customer is null
+	        if (session == null || session.getAttribute("customer") == null) {
+	            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+	                                 .body("Order failed: Customer session is invalid or expired.");
 	        }
 
-	        try 
-	        {
-	             
+	        try {
 	            Customer customer = (Customer) session.getAttribute("customer");
- 
+	            customer.setContact(request.getMobileNo());
+
+	            // Save the order details to the database
 	            orderService.saveOrder(customer.getId(), request);
- 
-	            return "ordersuccess";
-	        } 
-	        catch (Exception e) 
-	        
-	        {
-	            
-	            return "orderfail";
+
+	            // Create the Razorpay order here
+	            RazorpayClient razorpayClient = new RazorpayClient("rzp_test_aFsYJfzVozWYwE", "LjkNn12p1LNSNOoHI7Oz1oOI");
+	            JSONObject orderRequest = new JSONObject();
+	             
+	            orderRequest.put("currency", "INR");
+	            orderRequest.put("amount", request.getAmount() * 100); // Amount in paise (Razorpay expects paise)
+	            orderRequest.put("receipt", "order_rcptid_11");
+
+	            Order order = razorpayClient.orders.create(orderRequest);
+
+	            // Send the Razorpay order details back to the frontend
+	            return ResponseEntity.status(HttpStatus.CREATED)
+	                                 .body(new OrderResponse (order.get("id").toString(), order.get("amount").toString()));
+
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                                 .body("Order failed due to an internal error.");
 	        }
 	    }
+
+
 	    
 	    @GetMapping("myorders")
 	    public String myorders(Model m, HttpSession session)

@@ -7,7 +7,7 @@ import com.klef.jfsd.springboot.model.ProductOrder;
 
 public interface OrderService 
 {
-   public void saveOrder(int cid, OrderRequest orderRequest);
+   public void saveOrder(int cid, OrderRequest orderRequest) throws Exception;
  
    public List<ProductOrder> getOrderBycustomer(int cid);
    

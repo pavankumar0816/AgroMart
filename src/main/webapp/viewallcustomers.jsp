@@ -1,4 +1,13 @@
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@page import="com.klef.jfsd.springboot.model.Admin"%>
+<%
+Admin admin = (Admin) session.getAttribute("admin");
+if (admin == null) 
+{
+    response.sendRedirect("adminsessionexpiry.jsp");
+    return;
+}
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
