@@ -15,4 +15,8 @@ public interface ProductOrderRepository extends JpaRepository<ProductOrder, Inte
 	
 	@Query("SELECT po FROM ProductOrder po JOIN FETCH po.product JOIN FETCH po.customer WHERE po.customer.id = :cid")
 	List<ProductOrder> findByCustomerId(@Param("cid") int cid);
+	
+	@Query("SELECT o FROM ProductOrder o WHERE o.razorpayOrderId = :orderId")
+	public ProductOrder findByRazorpayOrderId(@Param("orderId") String orderId);
+
 }

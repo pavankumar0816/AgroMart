@@ -2,6 +2,7 @@ package com.klef.jfsd.springboot.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,6 +87,13 @@ public class CustomerController
 	public ModelAndView refund()
 	{
 		ModelAndView mv = new ModelAndView("refund");
+		return mv;
+	}
+	
+	@GetMapping("shippingpolicy")
+	public ModelAndView shippingpolicy()
+	{
+		ModelAndView mv = new ModelAndView("shippingpolicy");
 		return mv;
 	}
 	
@@ -482,7 +490,13 @@ public class CustomerController
 	        }
 	    }
 
-
+	    @PostMapping("handle-payment")
+         public String handlePayment(@RequestParam Map<String, String> respPayload)
+         {
+	    	System.out.println(respPayload);
+        	ProductOrder updateorder =  orderService.updateOrder(respPayload);
+        	return "success";
+         }
 	    
 	    @GetMapping("myorders")
 	    public String myorders(Model m, HttpSession session)

@@ -59,11 +59,10 @@ if (farmer == null) {
         <!-- Filters -->
 <div class="flex flex-col mb-6">
     <nav class="bg-white dark:bg-gray-900 p-4 shadow-md">
-        <div class="max-w-screen-xl mx-auto flex items-center justify-between space-x-4">
-            <!-- Category Dropdown -->
-            <select id="productCategory" onchange="filterByCategory()" 
-                class="p-2 w-1/3 bg-yellow-300 rounded-lg shadow-md text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="">Browse Categories</option>
+         <div class="flex items-center w-1/2">
+                    <select id="categorySelect" onchange="filterByCategory()" 
+                        class="p-2 w-full bg-yellow-200 rounded-lg shadow-md text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                       <option value="">Browse Categories</option>
                 <option value="All Categories">All Categories</option>
                 <option value="Processed Foods">Processed Foods</option>
                 <option value="Handmade Goods">Handmade Goods</option>
@@ -71,13 +70,7 @@ if (farmer == null) {
                 <option value="Dairy and Animal Products">Dairy and Animal Products</option>
             </select>
 
-            <!-- Search Filter Dropdown -->
-            <select id="searchFilter" onchange="toggleSearchBar()" 
-                class="p-2 w-1/4 bg-yellow-300 rounded-lg shadow-md text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="">Select Search Filter</option>
-                <option value="name">Search by Name</option>
-                <option value="cost">Search by Cost</option>
-            </select>
+            
         </div>
 
         <!-- Conditional Search Bar Display -->
@@ -96,37 +89,33 @@ if (farmer == null) {
 </div>
 
         <!-- Products Grid -->
-        <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 hidden">
-            <c:forEach items="${plist}" var="product">
-                <div class="card bg-white rounded-lg shadow-md p-4 product-card" data-category="${product.category}">
-                    <img src="displayproductimage?id=${product.id}" alt="${product.name}" class="w-full h-64 object-cover rounded-t-lg">
-                    <h3 class="text-xl font-bold text-gray-800 mt-4">${product.name}</h3>
-                    <p class="text-green-600 font-bold">&#8377;${product.cost}</p>
-                    <p class="text-gray-600">${product.description}</p>
-                </div>
-            </c:forEach>
+<div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <c:forEach items="${plist}" var="product">
+        <div class="card bg-white rounded-lg shadow-md p-4 product-card" data-category="${product.category}">
+            <img src="displayproductimage?id=${product.id}" alt="${product.name}" class="w-full h-64 object-cover rounded-t-lg">
+            <h3 class="text-xl font-bold text-gray-800 mt-4">${product.name}</h3>
+            <p class="text-green-600 font-bold">&#8377;${product.cost}</p>
+            <p class="text-gray-600">${product.description}</p>
         </div>
+    </c:forEach>
+</div>
+
     </div>
 </div>
 
 <script>
-    function filterByCategory() {
-        const category = document.getElementById("productCategory").value;
-        const grid = document.getElementById("productGrid");
-        const cards = document.querySelectorAll(".product-card");
+function filterByCategory() {
+    const category = document.getElementById("categorySelect").value;
+    const grid = document.getElementById("productGrid");
+    const cards = document.querySelectorAll(".product-card");
 
-        if (category === "") {
-            grid.classList.add("hidden");
-            return;
-        }
+    grid.classList.remove("hidden");
+    cards.forEach(card => {
+        const cardCategory = card.getAttribute("data-category");
+        card.style.display = (category === "All Categories" || cardCategory === category) ? "block" : "none";
+    });
+}
 
-        grid.classList.remove("hidden");
-
-        cards.forEach(card => {
-            const cardCategory = card.getAttribute("data-category");
-            card.style.display = (category === "All Categories" || cardCategory === category) ? "block" : "none";
-        });
-    }
 
     function searchProducts() {
         const query = document.getElementById("searchBar").value.toLowerCase();

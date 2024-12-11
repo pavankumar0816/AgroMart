@@ -3,6 +3,7 @@ package com.klef.jfsd.springboot.service;
 import java.time.LocalDate; 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -126,6 +127,19 @@ public class OrderServiceImpl implements OrderService
 	public List<ProductOrder> getAllOrders()
 	{	 
 		 return orderRepository.findAll();
+	}
+
+
+	@Override
+	public ProductOrder updateOrder(Map<String, String> responsePayLoad)
+	{
+		String razorPayOrderId = responsePayLoad.get("razorpay_order_id");
+		ProductOrder order = orderRepository.findByRazorpayOrderId(razorPayOrderId);
+		
+		order.setStatus("PAYMENT_COMPLETED");
+	    ProductOrder updateOrder = orderRepository.save(order);
+	    
+	    return updateOrder;
 	}
 
 

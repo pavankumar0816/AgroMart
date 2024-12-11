@@ -138,6 +138,7 @@ if (customer == null)
                 "description": "AgroMart Payments",
                 "order_id": order.razorpayOrderId,     
                 "receipt": order.email,
+                "callback_url" : "handle-payment",
                 "prefill": {
                     "name": order.fullname,
                     "email": order.email,

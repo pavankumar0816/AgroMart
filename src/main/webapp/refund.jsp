@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Refunds and Cancellation Policy</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         function toggleDropdown() {
@@ -33,52 +35,17 @@
                         <i class="fas fa-chevron-down ml-2"></i>
                     </button>
                     <ul class="hidden flex-col bg-gray-700 mt-2 rounded-md shadow-lg absolute top-full right-0 w-48 z-30" id="account-dropdown">
-                        <li class="hover:bg-gray-600">
-                            <a href="customerprofile" class="flex items-center px-4 py-2 text-white">
-                                <i class="fas fa-id-card mr-2"></i> Profile
-                            </a>
-                        </li>
-                        <li class="hover:bg-gray-600">
-                            <a href="updatecustomer" class="flex items-center px-4 py-2 text-white">
-                                <i class="fas fa-edit mr-2"></i> Edit Profile
-                            </a>
-                        </li>
-                        <li class="hover:bg-gray-600">
-                            <a href="term" class="flex items-center px-4 py-2 text-white">
-                                <i class="fas fa-question-circle mr-2"></i> Terms & Conditions
-                            </a>
-                        </li>
-                        <li class="hover:bg-gray-600">
-                            <a href="privacy" class="flex items-center px-4 py-2 text-white">
-                                <i class="fas fa-question-circle mr-2"></i> Privacy Policy
-                            </a>
-                        </li>
-                        <li class="hover:bg-gray-600">
-                            <a href="refund" class="flex items-center px-4 py-2 text-white">
-                                <i class="fas fa-question-circle mr-2"></i> Refunds and Cancellation
-                            </a>
-                        </li>
-                        <li class="hover:bg-gray-600">
-                            <a href="contactus" class="flex items-center px-4 py-2 text-white">
-                                <i class="fas fa-question-circle mr-2"></i> Contact US
-                            </a>
-                        </li>
-                        <li class="hover:bg-gray-600">
-                            <a href="myorders" class="flex items-center px-4 py-2 text-white">
-                                <i class="fas fa-heart mr-2"></i> My Orders
-                            </a>
-                        </li>
-                        <li class="hover:bg-gray-600">
-                            <a href="mycart" class="flex items-center px-4 py-2 text-white">
-                                <i class="fas fa-shopping-cart mr-2"></i> Cart
-                            </a>
-                        </li>
-                        <li class="border-t border-gray-600 hover:bg-gray-600">
-                            <a href="customerlogout" class="flex items-center px-4 py-2 text-red-400 font-semibold">
-                                <i class="fas fa-sign-out-alt mr-2"></i> Signout
-                            </a>
-                        </li>
-                    </ul>
+    <li class="hover:bg-gray-600"><a href="customerprofile" class="flex items-center px-4 py-2 text-white"><i class="fas fa-id-card mr-2"></i> Profile</a></li>
+    <li class="hover:bg-gray-600"><a href="updatecustomer" class="flex items-center px-4 py-2 text-white"><i class="fas fa-edit mr-2"></i> Edit Profile</a></li>
+    <li class="hover:bg-gray-600"><a href="term" class="flex items-center px-4 py-2 text-white"><i class="fas fa-file-alt mr-2"></i> Terms & Conditions</a></li>
+    <li class="hover:bg-gray-600"><a href="privacy" class="flex items-center px-4 py-2 text-white"><i class="fas fa-lock mr-2"></i> Privacy Policy</a></li>
+    <li class="hover:bg-gray-600"><a href="refund" class="flex items-center px-4 py-2 text-white"><i class="fas fa-undo-alt mr-2"></i> Refunds & Cancellation</a></li>
+    <li class="border-t border-gray-600 hover:bg-gray-600"><a href="shippingpolicy" class="flex items-center px-4 py-2 text-white	"><i class="fas fa-shipping-fast mr-2"></i> Shipping Policy</a></li>
+    <li class="hover:bg-gray-600"><a href="contactus" class="flex items-center px-4 py-2 text-white"><i class="fas fa-envelope mr-2"></i> Contact Us</a></li>
+    <li class="hover:bg-gray-600"><a href="myorders" class="flex items-center px-4 py-2 text-white"><i class="fas fa-shopping-bag mr-2"></i> My Orders</a></li>
+    <li class="hover:bg-gray-600"><a href="mycart" class="flex items-center px-4 py-2 text-white"><i class="fas fa-shopping-cart mr-2"></i> Cart</a></li>
+    <li class="border-t border-gray-600 hover:bg-gray-600"><a href="customerlogout" class="flex items-center px-4 py-2 text-red-400 font-semibold"><i class="fas fa-sign-out-alt mr-2"></i> Sign Out</a></li>
+</ul>
                 </li>
             </ul>
         </div>
