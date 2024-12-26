@@ -199,6 +199,7 @@ public class AdminController
 		return "redirect:/viewallfarmers";
 	}
 	
+	
 	@GetMapping("deletecustomer")
 	public String deletecustomeroperation(@RequestParam("id") int cid)
 	{
